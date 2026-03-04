@@ -120,7 +120,7 @@ def Vec_sum(vec_list):
 
 def gravitational_force(dt, particles, G):
     """
-    Implement Newtons law of gravity, by calcualtign each gravity force pairwise,
+    Implement Newtons law of gravity, by calculating each gravity force pairwise,
     and then applying it. 
     """
     n = len(particles)
