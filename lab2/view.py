@@ -49,7 +49,9 @@ def create_oval(canvas, particle):
     vector_pair = particle.bounding_box()
     move_oval_to(canvas,o,vector_pair[0],vector_pair[1])
     return o
+    
 def walls(canvas,r):
+    # Adds visual walls to the screen, where r is the radius of the involved particles
     r_c=(600/20) * r
     canvas.create_rectangle(0, 0, 600, 60-r_c, fill='red')
     canvas.create_rectangle(0, 0, 60-r_c, 600, fill='red')
@@ -59,16 +61,16 @@ def walls(canvas,r):
 def simulation_loop(f, timestep, particles):
     """
     The main simulation loop creats particles, applies forces and 
-    then updtaes thei positions. All by calling diffrent inherent attributes
+    then updates their positions. All by calling diffrent inherent attributes
     of tthe particle class and model python file.
     """
-    fps = 60
+    fps = 60 # frame rate 
     ovals = []
     for particle in particles:
         ovals.append(create_oval(canvas,particle))
 
-
-    canvas.itemconfig(ovals[0], fill="blue") # higlight one particle
+    # Highlight one particle with color and a velocity vector
+    canvas.itemconfig(ovals[0], fill="blue") 
     pos_vec = particles[0].position
     vel_vec = particles[0].velocity
     pos_canvas = to_canvas_coord(canvas,pos_vec)
@@ -77,8 +79,6 @@ def simulation_loop(f, timestep, particles):
     p_vel = canvas.create_line(pos_canvas[0],pos_canvas[1],
                        pos_canvas[0]+vel_canvas.x/5,pos_canvas[1]+vel_canvas.y/5,
                        arrow=LAST,width=2,fill = 'red' )
-    
-
 
     while True:
         time_ac = 0 # seconds that simulation has run
@@ -91,11 +91,7 @@ def simulation_loop(f, timestep, particles):
                 bounding_box = p.bounding_box()
                 move_oval_to(canvas,o,bounding_box[0],bounding_box[1]) # move particle on screen
                 p_vel_update(canvas,particles[0],p_vel)
-            time_ac += (time.time()-time_1)
-            if time_ac > 1/fps: # time to update
+            time_ac += (time.time()-time_1) # update the accumilator
+            if time_ac > 1/fps: # time to update the screen
                 break
         canvas.update()
-            
-        
-
-
